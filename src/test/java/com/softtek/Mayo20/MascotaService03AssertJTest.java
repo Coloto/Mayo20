@@ -29,8 +29,8 @@ public class MascotaService03AssertJTest {
         mascota.setPropietario(propietario);
 
         Mascota registrada = mascotaService.registrarMascota(mascota);
+        //ya registrado
         assertThatThrownBy(() -> mascotaService.registrarMascota(registrada));
-
 
         assertThat(registrada).isNotNull();
         assertThat(registrada.getNombre()).isEqualTo("Garfield");
@@ -41,18 +41,24 @@ public class MascotaService03AssertJTest {
         assertThat(registrada).isSameAs(mascota);
         assertThat(registrada.getId()).isPositive();
 
+        //buscar por id
         Optional<Mascota> mascoton = mascotaService.buscarMascotaPorId(mascota.getId());
+
+        //eliminar por id
         mascotaService.eliminarMascotaPorId(mascota.getId());
 
+        //registrar sin nombre
         Mascota mascotillaSinNombre = new Mascota();
         mascotillaSinNombre.setNombre(null);
         assertThatThrownBy(() -> mascotaService.registrarMascota(mascotillaSinNombre));
 
+        //registrar sin propietario
         Mascota mascotillaSinPropietario = new Mascota();
         mascotillaSinPropietario.setNombre("Paco");
         mascotillaSinPropietario.setPropietario(null);
         assertThatThrownBy(() -> mascotaService.registrarMascota(mascotillaSinPropietario));
 
+        //registrar propietario sin telefono
         Propietario propietarioSinTelefono = new Propietario();
         propietarioSinTelefono.setNombre("Juan");
         propietarioSinTelefono.setCiudad("Madrid");
@@ -62,15 +68,16 @@ public class MascotaService03AssertJTest {
         mascotillaSinTelefono.setPropietario(propietarioSinTelefono);
         assertThatThrownBy(() -> mascotaService.registrarMascota(mascotillaSinTelefono));
 
+        //registrar sin vacuna
         Mascota mascotillaSinVacunas  = new Mascota();
         mascotillaSinVacunas.setNombre("Paco sin vacuna");
         mascotillaSinVacunas.setPropietario(propietario);
         assertThatThrownBy(() -> mascotaService.registrarMascota(mascotillaSinVacunas));
 
+        //registrar sin municipio
         Mascota mascotillaSinMunicipio  = new Mascota();
         mascotillaSinMunicipio.setNombre("Paco no registrado");
         mascotillaSinMunicipio.setPropietario(propietario);
         assertThatThrownBy(() -> mascotaService.registrarMascota(mascotillaSinMunicipio));
-
     }
 }
