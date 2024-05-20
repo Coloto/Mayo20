@@ -10,6 +10,8 @@ import com.softtek.Mayo20.servicio.MascotaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class MascotaService03AssertJTest {
@@ -35,6 +37,16 @@ public class MascotaService03AssertJTest {
         assertThat(registrada.getPropietario().getTelefono()).isEqualTo("987654321");
         assertThat(registrada).isSameAs(mascota);
         assertThat(registrada.getId()).isPositive();
+
+        Optional<Mascota> mascoton = mascotaService.buscarMascotaPorId(mascota.getId());
+        mascotaService.eliminarMascotaPorId(mascota.getId());
+
+        /*Mascota mascotilla = new Mascota();
+        mascotilla.setNombre(null);
+        mascotilla.setPropietario(null);
+        Mascota mascotillaRegistrada = mascotaService.registrarMascota(mascotilla);*/
+
+
 
 
     }
